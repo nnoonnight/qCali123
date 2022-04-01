@@ -23,9 +23,8 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	
 	<!-- @Component, @Service, @Controller, @Repository가 지정된 클래스를 빈으로 등록해준다 -->
 	<context:component-scan base-package="com.group.exam" />
-	
-	
 	
 </beans:beans>
