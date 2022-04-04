@@ -1,15 +1,36 @@
 package com.group.exam.member.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
-import com.group.exam.member.vo.MemberVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.group.exam.member.dao.MemberDAOImpl;
+import com.group.exam.member.vo.InsertCommand;
+import com.group.exam.member.vo.MemberVO;
+import com.group.exam.member.vo.MemberVo;
+
+@Service
 public class MemberServiceImpl implements MemberService {
 
+	@Autowired
+	private MemberDAOImpl memberDAO;
+	
 	@Override
-	public void insert(MemberVO memberVO) {
-		// TODO Auto-generated method stub
-
+	public void insert(InsertCommand insertCommand) {
+		
+		MemberVo memberVo = new MemberVo();
+		memberVo.setmId(insertCommand.getMemberId());
+		memberVo.setmPassword(insertCommand.getMemberPw());
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = format.parse(insertCommand.getMemberBirthDay());//?????????
+		
+		memberVo.setmBirthday(date);
+		memberDAO.insert(memberVo);
+ 
 	}
 
 	@Override

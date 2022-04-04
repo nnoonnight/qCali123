@@ -3,9 +3,10 @@ package com.group.exam.member.dao;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.group.exam.member.vo.MemberVO;
+import com.group.exam.member.vo.MemberVo;
 
 //JpaRepository 를 사용하며, 데이터베이스에 CRUD 의 명령을 쿼리 없이 전달하여 실행 가능
 @Repository
@@ -13,9 +14,15 @@ public class MemberDAOImpl implements MemberDAO {
 
 	private SqlSessionTemplate sqlSessionTemplate;
 	
+	@Autowired
+	public MemberDAOImpl(SqlSessionTemplate sqlSessionTemplate) {
+		this.sqlSessionTemplate = sqlSessionTemplate;
+	}
+
+	
 	@Override
-	public void insert(MemberVO memberVO) {
-		// TODO Auto-generated method stub
+	public void insert(MemberVo memberVo) {
+		sqlSessionTemplate.insert("insert", memberVo);
 
 	}
 
@@ -32,7 +39,7 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public void login(MemberVO memberVO) {
+	public void login(MemberVo memberVo) {
 		// TODO Auto-generated method stub
 
 	}
@@ -74,7 +81,7 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public List<MemberVO> select() {
+	public List<MemberVo> select() {
 		// TODO Auto-generated method stub
 		return null;
 	}
