@@ -11,7 +11,7 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias alias="memberVO" type="com.group.exam.member.vo.MemberVO"/>
+		<typeAlias alias="memberVo" type="com.group.exam.member.vo.MemberVo"/>
 		<!-- 커맨드 객체 만들면 여기에 추가 -->
 	</typeAliases>
 </configuration>

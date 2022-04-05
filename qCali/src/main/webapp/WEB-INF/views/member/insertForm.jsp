@@ -10,23 +10,23 @@
 </head>
 <body>
 회원가입 양식
-<form:form commandName="memberVO" action="${pageContext.request.contextPath}/member/insert" method="post" >
+<form:form commandName="InsertCommand" action="${pageContext.request.contextPath}/member/insert" method="post" >
 
 <table border="1">
 		<tr>
-			<th>이메일</th><td><form:input path="memberId"/></td>
+			<th>이메일</th><td><form:input path="mId"/></td>
 		</tr>
 		<tr>
-			<th>비밀번호</th><td><form:input path="memberPw"/></td>
+			<th>비밀번호</th><td><form:password path="mPassword"/></td>
 		</tr>
 		<tr>
-			<th>비밀번호 확인</th><td><form:input path="memberPwCheck"/></td>
+			<th>비밀번호 확인</th><td><form:password path="mPasswordCheck"/></td>
 		</tr>
 		<tr>
-			<th>닉네임</th><td><form:input path="memberNickname"/></td>
+			<th>닉네임</th><td><form:input path="mNickname"/></td>
 		</tr>
 		<tr>
-			<th>생년월일</th><td><form:input path="memberBirthDay"/></td>
+			<th>생년월일</th><td><form:input path="mBirthday"/></td>
 		</tr>
 		
 	</table>

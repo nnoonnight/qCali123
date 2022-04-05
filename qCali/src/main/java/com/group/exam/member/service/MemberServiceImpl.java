@@ -1,6 +1,7 @@
 package com.group.exam.member.service;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.group.exam.member.dao.MemberDAOImpl;
 import com.group.exam.member.vo.InsertCommand;
-import com.group.exam.member.vo.MemberVO;
 import com.group.exam.member.vo.MemberVo;
 
 @Service
@@ -23,13 +23,19 @@ public class MemberServiceImpl implements MemberService {
 	public void insert(InsertCommand insertCommand) {
 		
 		MemberVo memberVo = new MemberVo();
-		memberVo.setmId(insertCommand.getMemberId());
-		memberVo.setmPassword(insertCommand.getMemberPw());
+		memberVo.setmId(insertCommand.getmId());
+		memberVo.setmPassword(insertCommand.getmPassword());
+		memberVo.setmNickname(insertCommand.getmNickname());
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = format.parse(insertCommand.getMemberBirthDay());//?????????
+		try {
+			Date date = format.parse(insertCommand.getmBirthday());
+			memberVo.setmBirthday(date);
+			System.out.println(memberVo);
+			memberDAO.insert(memberVo);
+		} catch (ParseException e) {
+			//날짜로 형변환 실패
+		}
 		
-		memberVo.setmBirthday(date);
-		memberDAO.insert(memberVo);
  
 	}
 
@@ -46,7 +52,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void login(MemberVO memberVO) {
+	public void login(MemberVo memberVo) {
 		// TODO Auto-generated method stub
 
 	}
@@ -88,7 +94,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<MemberVO> select() {
+	public List<MemberVo> select() {
 		// TODO Auto-generated method stub
 		return null;
 	}
