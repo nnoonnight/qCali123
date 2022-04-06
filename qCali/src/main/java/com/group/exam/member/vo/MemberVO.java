@@ -2,11 +2,14 @@ package com.group.exam.member.vo;
 
 import java.util.Date;
 
+import org.apache.ibatis.type.Alias;
+
+
 public class MemberVo {
 	
 	private int mSeq;
 	private String mId;
-	private String mBpw;
+	private String mBpassword;
 	private String mPassword;
 	private String mNickname;
 	private Date mBirthday;
@@ -16,6 +19,11 @@ public class MemberVo {
 	private int mLevel;
 
 	
+	public MemberVo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getmSeq() {
 		return mSeq;
 	}
@@ -32,12 +40,12 @@ public class MemberVo {
 		this.mId = mId;
 	}
 
-	public String getmBpw() {
-		return mBpw;
+	public String getmBpassword() {
+		return mBpassword;
 	}
 
-	public void setmBpw(String mBpw) {
-		this.mBpw = mBpw;
+	public void setmBpw(String mBpassword) {
+		this.mBpassword = mBpassword;
 	}
 
 	public String getmPassword() {
@@ -98,7 +106,7 @@ public class MemberVo {
 
 	@Override
 	public String toString() {
-		return "MemberVo [mSeq=" + mSeq + ", mId=" + mId + ", mBpw=" + mBpw + ", mPassword=" + mPassword
+		return "MemberVo [mSeq=" + mSeq + ", mId=" + mId + ", mBpassword=" + mBpassword + ", mPassword=" + mPassword
 				+ ", mNickname=" + mNickname + ", mBirthday=" + mBirthday + ", mRegday=" + mRegday + ", mAuth=" + mAuth
 				+ ", mAuthkey=" + mAuthkey + ", mLevel=" + mLevel + "]";
 	}

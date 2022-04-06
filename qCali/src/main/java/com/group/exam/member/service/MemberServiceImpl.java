@@ -46,9 +46,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int idDup(String member_id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int idDup(String mId) {	
+		return memberDAO.idDup(mId);
 	}
 
 	@Override

@@ -33,9 +33,9 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public int idDup(String member_id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int idDup(String mId) {
+		return sqlSessionTemplate.selectOne("idDup", mId);
+
 	}
 
 	@Override

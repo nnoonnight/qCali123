@@ -7,7 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,25 +30,32 @@ public class MemberInsertController {
 	}
 	
 	@RequestMapping(value="/member/insert", method=RequestMethod.POST)
-	public String insert(@Valid @ModelAttribute("InsertCommand")InsertCommand insertCommand, BindingResult bindingResult) throws Exception, IOException{
-		if(bindingResult.hasErrors()) {
+	public String insert(@Valid @ModelAttribute("InsertCommand")InsertCommand insertCommand, Errors errors) throws Exception, IOException{
+		
+		if(errors.hasErrors()) {
 			return "/member/insertForm";
 		}
 		System.out.println(insertCommand);
-		
-		String encodedPw = passwordEncoder.encode(insertCommand.getmPassword());
-		
-		insertCommand.setmPassword(encodedPw);
-//		if(errors.hasErrors()) {
-//			return "/member/insertSuccess";
-//		}
 		try {
-			memberService.insert(insertCommand);
-			return "/member/insertSuccess";
-		} catch (Exception e) {
+			int idDup = idDup(insertCommand);
+			if(idDup>=1) {
+				throw new AlreadyExistingIdException();
+			}else {
+				String encodedPw = passwordEncoder.encode(insertCommand.getmPassword());				
+				insertCommand.setmPassword(encodedPw);
+				memberService.insert(insertCommand);
+				return "/member/insertSuccess";
+			}			
+		}  catch (AlreadyExistingIdException e) {
+			errors.rejectValue("id", "duplicate");
 			return "/member/insertForm";
 		}
-		
-		
+	}
+	
+	
+	@RequestMapping("/member/idDup")
+	public int idDup(@ModelAttribute("InsertCommand")InsertCommand insertCommand) {		
+		String mId = insertCommand.getmId();
+		return memberService.idDup(mId);
 	}
 }
