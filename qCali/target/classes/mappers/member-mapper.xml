@@ -10,8 +10,8 @@
 		(member_seq.nextval, #{mId}, #{mPassword}, #{mNickname}, #{mBirthday}, SYSDATE)
 	</insert>
 	
-	<select id="idDup" parameterType="String"  resultType="Integer">
-		SELECT count(*) FROM member WHERE member_id = #{mId}
+	<select id="idDup" parameterType="String"  resultType="int">
+		SELECT COUNT(*) FROM member WHERE member_id = #{mId}
 	</select>
 	
 </mapper>

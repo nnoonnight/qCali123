@@ -11,6 +11,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.group.exam.member.service.MemberService;
 import com.group.exam.member.vo.InsertCommand;
@@ -36,26 +37,37 @@ public class MemberInsertController {
 			return "/member/insertForm";
 		}
 		System.out.println(insertCommand);
-		try {
-			int idDup = idDup(insertCommand);
+		int idDup = memberService.idDup(insertCommand.getmId());
+		//try {
 			if(idDup>=1) {
-				throw new AlreadyExistingIdException();
+				return "/member/insertForm";
+				//throw new AlreadyExistingIdException();
 			}else {
 				String encodedPw = passwordEncoder.encode(insertCommand.getmPassword());				
 				insertCommand.setmPassword(encodedPw);
 				memberService.insert(insertCommand);
-				return "/member/insertSuccess";
+				//return "/member/insertSuccess";
 			}			
-		}  catch (AlreadyExistingIdException e) {
-			errors.rejectValue("id", "duplicate");
-			return "/member/insertForm";
-		}
+			/*
+			 * } catch (AlreadyExistingIdException e) { errors.rejectValue("id",
+			 * "duplicate"); return "/member/insertForm"; }
+			 */
+			return "/member/insertSuccess";
 	}
 	
-	
-	@RequestMapping("/member/idDup")
+	@ResponseBody
+	@RequestMapping(value="/member/idDup",method=RequestMethod.POST)
 	public int idDup(@ModelAttribute("InsertCommand")InsertCommand insertCommand) {		
 		String mId = insertCommand.getmId();
+		
+		
 		return memberService.idDup(mId);
+		
+		
 	}
+	
+//	@RequestMapping("/member/idDup")
+//	public int idDup(@RequestParam("mId") String mId) {		
+//		return memberService.idDup(mId);
+//	}
 }
