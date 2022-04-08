@@ -27,9 +27,8 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public int nicknameDup(String member_nickname) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int nicknameDup(String mNickname) {
+		return sqlSessionTemplate.selectOne("nicknameDup", mNickname);
 	}
 
 	@Override

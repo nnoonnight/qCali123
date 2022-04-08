@@ -37,17 +37,12 @@ public class MemberInsertController {
 			return "/member/insertForm";
 		}
 		System.out.println(insertCommand);
-		int idDup = memberService.idDup(insertCommand.getmId());
-		//try {
-			if(idDup>=1) {
-				return "/member/insertForm";
-				//throw new AlreadyExistingIdException();
-			}else {
-				String encodedPw = passwordEncoder.encode(insertCommand.getmPassword());				
-				insertCommand.setmPassword(encodedPw);
-				memberService.insert(insertCommand);
+		
+			String encodedPw = passwordEncoder.encode(insertCommand.getmPassword());				
+			insertCommand.setmPassword(encodedPw);
+			memberService.insert(insertCommand);
 				//return "/member/insertSuccess";
-			}			
+					
 			/*
 			 * } catch (AlreadyExistingIdException e) { errors.rejectValue("id",
 			 * "duplicate"); return "/member/insertForm"; }
@@ -59,6 +54,15 @@ public class MemberInsertController {
 	@RequestMapping(value="/member/idDup",method=RequestMethod.POST)
 	public int idDup(@ModelAttribute("InsertCommand")InsertCommand insertCommand) {		
 		String mId = insertCommand.getmId();
+	
+		return memberService.idDup(mId);
+			
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/member/nicknameDup",method=RequestMethod.POST)
+	public int nicknameDup(@ModelAttribute("InsertCommand")InsertCommand insertCommand) {		
+		String mId = insertCommand.getmNickname();
 		
 		
 		return memberService.idDup(mId);

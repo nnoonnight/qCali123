@@ -11,33 +11,49 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 	<script type="text/javascript">
-		$(document).ready(function(){
-						
-				var idDupVal = $("#idDup").val();
-				if(idDupVal == "N"){
-					alert("중복확인 버튼을 눌러주세요.");
-				}else if(idDupVal == "Y"){
-					$("#insertForm").submit();
-				}
-			});
-		
-		
-		function fn_idDup(){
-			$.ajax({
-				url : "/exam/member/idDup",
-				type : "POST",
-				dataType : "json",
-				data : {"mId" : $("#mId").val()},
-				success : function(data){
-					if(data == 1){
-						alert("중복된 아이디입니다.");
-					}else if(data == 0){
-						$("#idDup").attr("value", "Y");
-						alert("사용가능한 아이디입니다.");
-					}
-				}
-			})
-		};
+	  function fn_idDup() {
+	        $.ajax({
+	            url : "/exam/member/idDup",
+	            type : "POST",
+	            dataType :"JSON",
+	            data : {"mId" : $("#mId").val()},
+	            success : function (data) {
+	                if(data == 1) {
+	                    alert("중복된 이메일입니다.");
+	                } else if (data == 0) {
+	                    $("#idDup").attr("value", "Y");
+	                    alert("사용 가능한 이메일입니다.")
+	                }
+	            }
+
+	        })
+	    }
+	  
+	  function fn_nicknameDup() {
+	        $.ajax({
+	            url : "/exam/member/nicknameDup",
+	            type : "POST",
+	            dataType :"JSON",
+	            data : {"mNickname" : $("#mNickname").val()},
+	            success : function (data) {
+	                if(data == 1) {
+	                    alert("중복된 닉네임입니다.");
+	                } else if (data == 0) {
+	                    $("#nicknameDup").attr("value", "Y");
+	                    alert("사용 가능한 닉네임입니다.")
+	                }
+	            }
+
+	        })
+	    }
+	  function fn_dupCheck() {
+		  var id = document.getElementById('#mId').value
+		  var nn = document.getElementById('#mNickname').value
+		  
+		  if(id=="N"||nn=="N"){
+		  alert("중복확인 버튼을 눌러주세요.")			  
+		  }
+	    }
 	</script>
 <body>
 
@@ -59,7 +75,9 @@
 			<th>비밀번호 확인</th><td><form:password path="mPasswordCheck"/><form:errors path="mPasswordCheck"/></td>
 		</tr>
 		<tr>
-			<th>닉네임</th><td><form:input path="mNickname"/><form:errors path="mNickname"/></td>
+			<th>닉네임</th><td><form:input path="mNickname" id="mNickname"/><form:errors path="mNickname"/> &nbsp;&nbsp;
+				<button class="nicknameDup" type="button" id="nicknameDup" onclick="fn_nicknameDup();" value="N">중복확인</button>
+			</td>
 		</tr>
 		<tr>
 			<th>생년월일</th><td><form:input path="mBirthday" placeholder="yyyy-mm-dd"/><form:errors path="mBirthday"/></td>
@@ -67,7 +85,7 @@
 		
 	</table>
 	<br>
-	<input type="submit" value="회원가입">
+	<input type="submit" value="회원가입" onclick="fn_dupCheck();">
 </form:form>
 
 </body>

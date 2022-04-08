@@ -14,4 +14,8 @@
 		SELECT COUNT(*) FROM member WHERE member_id = #{mId}
 	</select>
 	
+	<select id="nicknameDup" parameterType="String"  resultType="int">
+		SELECT COUNT(*) FROM member WHERE member_nickname = #{mNickname}
+	</select>
+	
 </mapper>
