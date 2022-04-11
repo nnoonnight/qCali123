@@ -19,7 +19,15 @@ public class InsertCommand {
 	@NotBlank(message="생년월일을 입력하세요.")
 	private String mBirthday;
 	
+	private String mAuthkey;
 	
+	
+	public String getmAuthkey() {
+		return mAuthkey;
+	}
+	public void setmAuthkey(String mAuthkey) {
+		this.mAuthkey = mAuthkey;
+	}
 	public String getmId() {
 		return mId;
 	}
@@ -52,9 +60,11 @@ public class InsertCommand {
 	}
 	@Override
 	public String toString() {
-		return "InsertCommand [mId=" + mId + ", mPassword=" + mPassword + ", mPasswordCheck=" + mPasswordCheck + ", mNickname="
-				+ mNickname + ", mBirthDay=" + mBirthday + "]";
+		return "InsertCommand [mId=" + mId + ", mPassword=" + mPassword + ", mPasswordCheck=" + mPasswordCheck
+				+ ", mNickname=" + mNickname + ", mBirthday=" + mBirthday + ", mAuthkey=" + mAuthkey + "]";
 	}
+
+	
 	
 	
 	

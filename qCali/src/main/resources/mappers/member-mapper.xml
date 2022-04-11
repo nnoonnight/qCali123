@@ -18,4 +18,8 @@
 		SELECT COUNT(*) FROM member WHERE member_nickname = #{mNickname}
 	</select>
 	
+	<update id="updateAuthkey" parameterType="memberVo" >
+		UPDATE member SET member_authkey = #{mAuthkey} WHERE member_id = #{mId};
+	</update>
+	
 </mapper>

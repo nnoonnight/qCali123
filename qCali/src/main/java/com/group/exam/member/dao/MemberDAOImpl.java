@@ -28,7 +28,8 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public int nicknameDup(String mNickname) {
-		return sqlSessionTemplate.selectOne("nicknameDup", mNickname);
+		int res = sqlSessionTemplate.selectOne("nicknameDup", mNickname);
+		return res;
 	}
 
 	@Override
@@ -37,6 +38,12 @@ public class MemberDAOImpl implements MemberDAO {
 
 	}
 
+	@Override
+	public void updateAuthkey(MemberVo memberVo) {
+		sqlSessionTemplate.update("updateAuthkey", memberVo);
+	}
+	
+	
 	@Override
 	public void login(MemberVo memberVo) {
 		// TODO Auto-generated method stub

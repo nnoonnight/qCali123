@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.group.exam.member.service.MailSendService;
 import com.group.exam.member.service.MemberService;
 import com.group.exam.member.vo.InsertCommand;
 
@@ -25,6 +26,9 @@ public class MemberInsertController {
 	@Autowired
 	private MemberService memberService;
 
+	@Autowired
+	private MailSendService mss;
+	  
 	@RequestMapping(value="/member/insert", method=RequestMethod.GET)
 	public String insert(@ModelAttribute("InsertCommand")InsertCommand insertCommand) {
 		return "/member/insertForm";
@@ -41,13 +45,17 @@ public class MemberInsertController {
 			String encodedPw = passwordEncoder.encode(insertCommand.getmPassword());				
 			insertCommand.setmPassword(encodedPw);
 			memberService.insert(insertCommand);
-				//return "/member/insertSuccess";
-					
-			/*
-			 * } catch (AlreadyExistingIdException e) { errors.rejectValue("id",
-			 * "duplicate"); return "/member/insertForm"; }
-			 */
-			return "/member/insertSuccess";
+			
+			
+			String authKey = mss.sendAuthMail(insertCommand.getmId()); //인증 메일을 발송,인증키 6자리 String 반환
+
+			insertCommand.setmAuthkey(authKey);
+	        System.out.println(insertCommand);
+
+	      //DB에 authKey 업데이트
+	      memberService.updateAuthkey(insertCommand);
+
+			return "/member/emailConfirm";
 	}
 	
 	@ResponseBody
@@ -62,10 +70,9 @@ public class MemberInsertController {
 	@ResponseBody
 	@RequestMapping(value="/member/nicknameDup",method=RequestMethod.POST)
 	public int nicknameDup(@ModelAttribute("InsertCommand")InsertCommand insertCommand) {		
-		String mId = insertCommand.getmNickname();
-		
-		
-		return memberService.idDup(mId);
+		String mNickname = insertCommand.getmNickname();
+		int res = memberService.nicknameDup(mNickname);
+		return res;
 		
 		
 	}

@@ -186,7 +186,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
-			<version>${org.springframework-version}</version>
+			<version>5.2.0.RELEASE</version>
 		</dependency>
 		
 		<!-- email 형식 -->

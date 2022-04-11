@@ -41,12 +41,21 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int nicknameDup(String mNickname) {
-		return memberDAO.nicknameDup(mNickname);
+		int res = memberDAO.nicknameDup(mNickname);
+		return res;
 	}
 
 	@Override
 	public int idDup(String mId) {	
 		return memberDAO.idDup(mId);
+	}
+	
+	@Override
+	public void updateAuthkey(InsertCommand insertCommand) {
+		MemberVo memberVo = new MemberVo();
+		memberVo.setmId(insertCommand.getmId());
+		memberVo.setmAuthkey(insertCommand.getmAuthkey());
+		memberDAO.updateAuthkey(memberVo);
 	}
 
 	@Override
@@ -96,5 +105,7 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }
