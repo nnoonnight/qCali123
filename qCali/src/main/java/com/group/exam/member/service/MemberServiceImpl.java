@@ -57,6 +57,13 @@ public class MemberServiceImpl implements MemberService {
 		memberVo.setmAuthkey(insertCommand.getmAuthkey());
 		memberDAO.updateAuthkey(memberVo);
 	}
+	
+	public void updateAuth(String mAuthkey) {
+		MemberVo memberVo = new MemberVo();
+		memberVo.setmAuth("T");
+		memberVo.setmAuthkey(mAuthkey);
+		memberDAO.updateAuth(memberVo);
+	}
 
 	@Override
 	public void login(MemberVo memberVo) {

@@ -12,7 +12,8 @@ public interface MemberService {
 	public void insert(InsertCommand insertCommand);//회원가입	
 	public int nicknameDup(String mNickname);//닉네임 중복확인
 	public int idDup(String mId);//id(email) 중복확인
-	public void updateAuthkey(InsertCommand insertCommand);
+	public void updateAuthkey(InsertCommand insertCommand);//인증메일 발송후 인증키 저장
+	public void updateAuth(String mAuthkey);//메일 클릭시 인증 완료
 	public void login(MemberVo memberVo);//로그인
 	public void sendPw(String mId);//임시 비번 발송	
 	public int updateCheck(String mPassword);//정보수정 입장 전 비번 확인

@@ -42,17 +42,20 @@ public class MemberInsertController {
 		}
 		System.out.println(insertCommand);
 		
+			//비밀번호 암호화
 			String encodedPw = passwordEncoder.encode(insertCommand.getmPassword());				
+			//암호화한 비번 셋
 			insertCommand.setmPassword(encodedPw);
+			//insert
 			memberService.insert(insertCommand);
 			
-			
-			String authKey = mss.sendAuthMail(insertCommand.getmId()); //인증 메일을 발송,인증키 6자리 String 반환
-
+			//인증 메일을 발송,인증키 6자리 String 반환
+			String authKey = mss.sendAuthMail(insertCommand.getmId()); 
+			//인증키 셋
 			insertCommand.setmAuthkey(authKey);
-	        System.out.println(insertCommand);
 
-	      //DB에 authKey 업데이트
+
+	      //DB에 인증키 업데이트
 	      memberService.updateAuthkey(insertCommand);
 
 			return "/member/emailConfirm";
@@ -77,8 +80,5 @@ public class MemberInsertController {
 		
 	}
 	
-//	@RequestMapping("/member/idDup")
-//	public int idDup(@RequestParam("mId") String mId) {		
-//		return memberService.idDup(mId);
-//	}
+
 }

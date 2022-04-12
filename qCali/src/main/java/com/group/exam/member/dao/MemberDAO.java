@@ -12,7 +12,8 @@ public interface MemberDAO {
 	public abstract void insert(MemberVo memebrVo);//회원가입	
 	public abstract int nicknameDup(String mNickname);//닉네임 중복확인
 	public abstract int idDup(String mId);//id(email) 중복확인
-	public abstract void updateAuthkey(MemberVo memebrVo);
+	public abstract void updateAuthkey(MemberVo memebrVo);//인증메일 발송후 인증키 저장
+	public abstract void updateAuth(MemberVo memebrVo);//메일 클릭시 인증 완료
 	public abstract void login(MemberVo memberVo);//로그인
 	public abstract void sendPw(String mId);//임시 비번 발송	
 	public abstract int updateCheck(String mPassword);//정보수정 입장 전 비번 확인

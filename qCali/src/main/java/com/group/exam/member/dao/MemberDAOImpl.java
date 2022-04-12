@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.group.exam.member.vo.InsertCommand;
 import com.group.exam.member.vo.MemberVo;
 
 //JpaRepository 를 사용하며, 데이터베이스에 CRUD 의 명령을 쿼리 없이 전달하여 실행 가능
@@ -43,6 +44,10 @@ public class MemberDAOImpl implements MemberDAO {
 		sqlSessionTemplate.update("updateAuthkey", memberVo);
 	}
 	
+	@Override
+	public void updateAuth(MemberVo memberVo) {
+		sqlSessionTemplate.update("updateAuth", memberVo);
+	}
 	
 	@Override
 	public void login(MemberVo memberVo) {
